@@ -1,6 +1,9 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, AbstractControl} from '@angular/common';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
+import {Inject} from '@angular/core';
+import {Http} from '@angular/http';
+import {Headers} from '@angular/http';
 
 @Component({
   selector: 'register',
@@ -41,8 +44,28 @@ export class Register {
   public onSubmit(values:Object):void {
     this.submitted = true;
     if (this.form.valid) {
-      // your code goes here
-      // console.log(values);
+
+
+      // Autenticando no servidor
+
+
+
+        class DataService {
+
+          constructor(private _http: Http){ }
+
+          sendCoffe(){
+
+            var headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+
+          return this._http.put("http://www.mocky.io/v2/57882e5e0f00008c12bd1659",{name: values.name, email: values.email, passwords: values.passwords.password},{ headers : headers}).map(res => res);
+          console.log(values.passwords.password);
+          console.log(res);
+    }
+
+        }
+       console.log(values);
     }
   }
 }
